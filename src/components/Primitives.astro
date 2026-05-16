@@ -1,0 +1,57 @@
+---
+import Section from "./Section.astro";
+import { getCollection } from "astro:content";
+import { withBase } from "../lib/paths";
+
+const primitives = (await getCollection("primitives")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const rajaBg = `url(${withBase("/raja.png")})`;
+---
+
+<Section text="Core Primitives" href="primitives">
+  {
+    primitives.map(({ id, data }, index) => {
+      const top = 98 + index * 40;
+      return (
+        <div
+          style={`top: ${top}px;`}
+          class="sticky mb-12 rounded-2xl border border-neutral/20 bg-black"
+        >
+          <div
+            class="relative z-1 rounded-2xl border border-neutral/20 bg-[#1c232d]/85 px-7 py-12 md:px-9 md:py-14 before:absolute before:inset-0 before:z-[-1] before:rounded-2xl before:bg-size-[128px] before:bg-repeat before:opacity-5 before:content-['']"
+            style={`--raja-bg: ${rajaBg}`}
+          >
+            {data.role && (
+              <p class="mb-3 text-xs font-medium tracking-[0.12em] text-white/70 uppercase">
+                {data.role}
+              </p>
+            )}
+            <h3 class="mb-4 font-serif text-3xl leading-snug font-medium text-primary">
+              {data.title}
+            </h3>
+            <p class="mb-5 max-w-2xl font-serif text-xl leading-snug font-medium text-white">
+              {data.subtitle}
+            </p>
+            <p class="mb-10 max-w-2xl text-base leading-[1.75] text-neutral">
+              {data.description}
+            </p>
+            <a
+              href={withBase(`/primitives/${id}`)}
+              class="inline-block text-sm leading-none font-medium tracking-wide text-white hover:text-primary hover:underline"
+            >
+              Read full primitive →
+            </a>
+          </div>
+        </div>
+      );
+    })
+  }
+</Section>
+
+<style>
+  .relative.z-1::before {
+    background-image: var(--raja-bg);
+  }
+</style>

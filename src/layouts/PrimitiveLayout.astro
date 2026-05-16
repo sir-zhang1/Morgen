@@ -1,0 +1,67 @@
+---
+import "../styles/global.css";
+import Header from "@components/Header.astro";
+import { Font } from "astro:assets";
+import { SITE_CONFIG } from "@config";
+import Footer from "@components/Footer.astro";
+import { withBase } from "../lib/paths";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title: pageTitle, description: pageDescription } = Astro.props;
+
+const {
+  description: siteDescription,
+  siteLogo,
+  navLinks,
+  lang,
+  author,
+  socialLinks,
+  socialImage,
+  canonicalURL,
+} = SITE_CONFIG;
+
+const resolvedCanonicalURL =
+  canonicalURL ?? new URL(Astro.url.pathname, Astro.url).href;
+
+const metaDescription = pageDescription ?? siteDescription;
+const ogImgUrl = new URL(withBase(socialImage), Astro.site ?? resolvedCanonicalURL)
+  .href;
+---
+
+<!doctype html>
+<html lang={lang} class="scroll-pt-16 scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={metaDescription} />
+    <meta name="author" content={author} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+
+    <Font cssVariable="--font-gabarito" preload />
+    <Font cssVariable="--font-be-vietnam-pro" preload />
+
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:url" content={resolvedCanonicalURL} />
+    <meta property="og:image" content={ogImgUrl} />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={resolvedCanonicalURL} />
+    <meta property="twitter:title" content={pageTitle} />
+    <meta property="twitter:description" content={metaDescription} />
+    <meta property="twitter:image" content={ogImgUrl} />
+  </head>
+  <body class="bg-black font-sans">
+    <Header siteLogo={siteLogo} navLinks={navLinks} />
+    <main class="mx-auto max-w-4xl px-5 pb-8 sm:px-6">
+      <slot />
+    </main>
+    <Footer author={author} socialLinks={socialLinks} />
+  </body>
+</html>

@@ -1,0 +1,30 @@
+---
+import type { HeroProps } from "@types";
+
+type Props = HeroProps;
+
+const { name, role, tagline } = Astro.props;
+const taglineLines = tagline.split(/(?<=\.)\s+/).filter(Boolean);
+---
+
+<section class="border-b border-white/5 py-28 md:py-36 lg:py-40" id="hero">
+  <h1
+    class="mb-6 font-serif text-7xl leading-[0.92] font-bold tracking-tightest text-white uppercase sm:text-8xl md:mb-7 md:text-9xl"
+  >
+    {name}
+  </h1>
+  <p
+    class="mb-10 max-w-2xl border-l-2 border-primary/60 pl-5 text-base leading-relaxed font-medium tracking-wide text-primary md:mb-12 md:text-lg"
+  >
+    {role}
+  </p>
+  <div class="max-w-2xl space-y-3 md:space-y-4">
+    {
+      taglineLines.map((line) => (
+        <p class="text-lg leading-[1.75] text-neutral/90 md:text-xl md:leading-8">
+          {line}
+        </p>
+      ))
+    }
+  </div>
+</section>

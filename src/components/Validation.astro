@@ -1,0 +1,23 @@
+---
+import Section from "./Section.astro";
+import type { ValidationItem } from "@types";
+
+interface Props {
+  items: ValidationItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<Section text="Proof of Merit" href="validation">
+  {
+    items.map(({ title, description }) => (
+      <div class="mb-12 max-w-[65ch] last:mb-0 md:mb-14">
+        <h3 class="mb-4 font-serif text-2xl leading-snug font-semibold text-white">
+          {title}
+        </h3>
+        <p class="text-base leading-[1.75] text-neutral">{description}</p>
+      </div>
+    ))
+  }
+</Section>

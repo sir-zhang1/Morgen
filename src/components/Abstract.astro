@@ -1,0 +1,21 @@
+---
+import Section from "./Section.astro";
+
+interface Props {
+  paragraphs: string[];
+}
+
+const { paragraphs } = Astro.props;
+---
+
+<Section text="Abstract" href="abstract">
+  <div class="max-w-[65ch] space-y-8 md:space-y-10">
+    {
+      paragraphs.map((paragraph) => (
+        <p class="text-base leading-[1.8] text-neutral md:text-[1.0625rem]">
+          {paragraph}
+        </p>
+      ))
+    }
+  </div>
+</Section>

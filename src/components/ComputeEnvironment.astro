@@ -1,0 +1,42 @@
+---
+import Section from "./Section.astro";
+import type { ComputeEnvironmentProps } from "@types";
+import { withBase } from "../lib/paths";
+
+type Props = ComputeEnvironmentProps;
+
+const { layers, image } = Astro.props;
+const imageSrc = withBase(image);
+---
+
+<Section text="Compute Environment" href="about">
+  <div class="flex flex-col items-center gap-12 md:flex-row md:items-start md:gap-8">
+    <div class="w-full max-w-[65ch] flex-1 space-y-12">
+      {
+        layers.map(({ title, summary, stack }) => (
+          <div>
+            <h3 class="mb-3 font-serif text-2xl leading-snug font-semibold text-white">
+              {title}
+            </h3>
+            <p class="mb-4 text-base leading-[1.75] text-neutral">{summary}</p>
+            {stack && (
+              <p class="text-sm leading-relaxed font-medium tracking-wide text-primary">
+                {stack}
+              </p>
+            )}
+          </div>
+        ))
+      }
+    </div>
+    <div class="h-80 w-64 shrink-0 rotate-[5deg] bg-white p-4 md:rotate-[7deg]">
+      <img
+        class="h-full w-full object-cover"
+        src={imageSrc}
+        width="260"
+        height="320"
+        alt="Morgen"
+        loading="lazy"
+      />
+    </div>
+  </div>
+</Section>

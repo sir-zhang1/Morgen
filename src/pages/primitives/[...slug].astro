@@ -1,0 +1,40 @@
+---
+import { getCollection, render } from "astro:content";
+import PrimitiveLayout from "@layouts/PrimitiveLayout.astro";
+import PrimitiveArticle from "@components/PrimitiveArticle.astro";
+import { SITE_CONFIG } from "@config";
+
+export async function getStaticPaths() {
+  const primitives = await getCollection("primitives");
+  return primitives.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, description } = entry.data;
+const pageTitle = `${title} — ${SITE_CONFIG.title}`;
+
+const sorted = (await getCollection("primitives")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const index = sorted.findIndex((item) => item.id === entry.id);
+const prev = index > 0 ? sorted[index - 1] : undefined;
+const next = index < sorted.length - 1 ? sorted[index + 1] : undefined;
+---
+
+<PrimitiveLayout title={pageTitle} description={description}>
+  <PrimitiveArticle
+    entry={entry}
+    prev={prev}
+    next={next}
+    index={index}
+    total={sorted.length}
+  >
+    <div class="primitive-content">
+      <Content />
+    </div>
+  </PrimitiveArticle>
+</PrimitiveLayout>
