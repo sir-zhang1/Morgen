@@ -5,6 +5,29 @@ import {
 } from "../consts";
 import type { SiteConfig, SiteContent } from "../types";
 
+const FIRST_PRINCIPLES_AXIOMS = [
+  {
+    letter: "F",
+    text: "Fidelity to reconciled state precedes velocity—what cannot be verified across chain and ledger should not ship.",
+  },
+  {
+    letter: "I",
+    text: "In markets saturated with noise, the right to define settlement rules belongs only to those who extract measurable precision.",
+  },
+  {
+    letter: "R",
+    text: "Reduction is not aesthetic minimalism; it is the discipline of keeping systems legible under maximum load.",
+  },
+  {
+    letter: "S",
+    text: "State machines, once deployed, should execute like theorems—not read like feature lists.",
+  },
+  {
+    letter: "T",
+    text: "Translating probabilistic games into settleable consensus is infrastructure. That is the work pursued at Helm.",
+  },
+];
+
 export const SITE_CONFIG: SiteConfig = {
   title: SITE_TITLE,
   author: "Morgen",
@@ -24,50 +47,147 @@ export const SITE_CONTENT: SiteContent = {
     tagline: SITE_DESCRIPTION,
   },
   abstract: [
-    "I am an Independent Technologist focused on the structural reduction of complex systems and deterministic engineering.",
-    "I view financial routing and decentralized markets as non-linear systems saturated with noise. My objective is to strip away redundancy and lock onto the 1% deterministic signal. I operate on a strict conviction: if you cannot extract precision from massive off-chain datasets, you have no right to define on-chain settlement rules.",
-    "My engineering background—spanning high-fidelity predictive modeling to the semantic topology of high-dimensional data—has forged a ruthless quantitative mindset. Currently, I am injecting this dominion over \"signal and noise\" into Solana's asynchronous infrastructure. I do not care for surface-level business logic; I am obsessed with building underlying state machines that, once deployed, execute like mathematical theorems.",
-    "It is this paranoia for computational integrity that drives my architectural leadership at Helm—a complex prediction market protocol designed to deconstruct real-world probabilistic game theory and translate it into deterministic on-chain settlement.",
+    {
+      segments: [
+        { kind: "text", value: "I lead product and technology for " },
+        { kind: "product", value: "Helm" },
+        { kind: "text", value: " (" },
+        {
+          kind: "link",
+          text: "helm.trading",
+          href: "https://helm.trading/",
+        },
+        {
+          kind: "text",
+          value:
+            ")—a Solana-native prediction-market terminal where users trade real-world event outcomes and short-duration crypto markets with the speed and clarity of a professional desk, not a crypto toy.",
+        },
+      ],
+    },
+    {
+      segments: [
+        {
+          kind: "text",
+          value:
+            "I joined at inception and owned the full stack from zero: product definition, trading architecture, data plane, and on-chain operations. That includes market and limit order flow, settlement and payout automation, indexer-style reconciliation, a ",
+        },
+        { kind: "product", value: "copy-trading" },
+        {
+          kind: "text",
+          value:
+            " mirror engine with auditable attribution, ",
+        },
+        { kind: "product", value: "UGC markets" },
+        {
+          kind: "text",
+          value: " with creator economics, a social layer (",
+        },
+        { kind: "product", value: "Square" },
+        {
+          kind: "text",
+          value:
+            "), and growth systems (points, referrals, OAuth). On the AI side, I shipped ",
+        },
+        { kind: "product", value: "TradeDraft" },
+        {
+          kind: "text",
+          value:
+            "—an executable copilot that turns intent into structured, wallet-signed trades (no custody, no auto-signing).",
+        },
+      ],
+    },
+    {
+      segments: [
+        { kind: "product", value: "Helm" },
+        {
+          kind: "text",
+          value:
+            " is live on Solana devnet public beta by design: we stress-test real user behavior, economics, and ops before mainnet. The infrastructure is built mainnet-shaped—treasury, SPL flows, claims, anti-abuse, and a full V2→V3 token cutover across three devnet iterations—so scaling is an execution milestone, not a science project.",
+        },
+      ],
+    },
+    {
+      segments: [
+        { kind: "text", value: "Early traction is measurable: " },
+        { kind: "metric", value: "130k+" },
+        { kind: "text", value: " connected wallets, " },
+        { kind: "metric", value: "13.5M+" },
+        { kind: "text", value: " order records, and " },
+        { kind: "metric", value: "14.5M+" },
+        { kind: "text", value: " copy-pipeline events within the first " },
+        { kind: "metric", value: "~2.5 months" },
+        { kind: "text", value: " of beta, plus " },
+        { kind: "metric", value: "1,100+" },
+        { kind: "text", value: " user-created markets. I optimize for ship velocity, honest metrics, and " },
+        { kind: "product", value: "terminal-grade UX" },
+        {
+          kind: "text",
+          value:
+            "—the combination of product taste and systems depth that turns a prediction-market idea into a platform investors can underwrite.",
+        },
+      ],
+    },
   ],
-  validation: [
-    {
-      title: "Theoretical Rigor & Quantitative Distinction",
-      description:
-        "Maintained a technical baseline within the top 1% extreme of peer cohorts in long-term evaluations of system architecture and algorithmic theory. Awarded the sole premier institutional recognition for quantitative excellence in a four-year cycle. This serves as a testament to absolute dominion over low-level computational logic.",
-    },
-    {
-      title: "Signal Extraction in Stochasticity",
-      description:
-        "Secured top-tier national honors in high-dimensional modeling and complex energy routing frameworks. This validates the capacity to precisely extract high-value deterministic signals within non-linear markets saturated with noise.",
-    },
-    {
-      title: "Architectural Leadership in Frameworks",
-      description:
-        "As the core logic builder, secured the highest distinction in top-tier technical competitions involving cross-border big data infrastructure. This establishes the engineering intuition required to build highly robust, cross-domain compatible complex systems from the ground up.",
-    },
-  ],
-  compute: {
-    image: "/touxiang.jpg",
-    layers: [
+  validation: {
+    credentials: [
       {
-        title: "Consensus & State Layer",
-        summary:
-          "Focused on state machine locking and memory safety in extreme concurrency environments.",
-        stack:
-          "Rust · Solana Primitives · High-Concurrency State Logic",
+        text: "MS in AI, Shandong University — Computer Science ranks in the global ",
+        emphasis: "Top 0.1% (ESI) and Top 100 worldwide",
       },
       {
-        title: "Inference & Intelligence Layer",
-        summary:
-          "Reducing stochasticity to build complex predictive and classification matrices.",
-        stack:
-          "Probabilistic Modeling · Ensemble Learning Architecture · Neural Networks · Semantic Topology",
+        text: "",
+        emphasis: "University National Scholarship",
+        suffix: " recipient",
       },
       {
-        title: "Deterministic Engineering Principles",
-        summary:
-          "Rejecting unauthorized systemic refactoring, maintaining production environment stability through absolute dictatorial will. Code evolution must be executed exclusively as incremental fixes or precise replacements. This near-paranoid engineering discipline ensures the immutability and execution safety of financial-grade application states under maximum concurrency.",
+        text: "",
+        emphasis: "Gold medal",
+        suffix:
+          " at the Belt and Road & BRICS Skills Development and Technological Innovation Competition",
       },
     ],
+    portfolio: [
+      {
+        code: "ARCH-2024-CLD",
+        title: "Cloud-Native Resource Scheduling Protocols",
+        domain: "Dynamic allocation within cloud infrastructure.",
+        core: "Distributed Systems, Load Balancing Algorithms.",
+      },
+      {
+        code: "ALG-2023-NLP",
+        title: "Semantic Topology & Knowledge Graphs",
+        domain:
+          "Mapping unstructured historical data into navigable logic.",
+        core: "Word2Vec, PageRank, NLP Feature Extraction.",
+      },
+      {
+        code: "MOD-2023-REC",
+        title: "ML-Driven Behavioral Matrices",
+        domain:
+          "User segmentation and transactional relational mapping.",
+        core: "K-Means Clustering, Apriori Algorithm.",
+      },
+      {
+        code: "SIM-2024-ECO",
+        title: "Macro-Market Game Theory Simulation",
+        domain:
+          "Quantitative simulation of economic decision-making and trade dynamics.",
+        core: "Stochastic Environments, Incentive Mechanism Design.",
+      },
+      {
+        code: "STAT-2024-REG",
+        title: "Stochastic Signal Extraction Modeling",
+        domain:
+          "Isolating deterministic behavioral patterns from high-dimensional marketing noise.",
+        core: "Applied Statistics, Probability Regression Matrices.",
+      },
+    ],
+  },
+  compute: {
+    sectionTitle: "First Principles",
+    sectionHref: "about",
+    image: "/touxiang.jpg",
+    axioms: FIRST_PRINCIPLES_AXIOMS,
+    stackTags: "Mathematics · Engineering · Consensus · Integrity",
   },
 };

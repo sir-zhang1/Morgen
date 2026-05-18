@@ -8,10 +8,20 @@ export interface SiteConfig extends HeaderProps {
   canonicalURL?: string;
 }
 
+export type AbstractSegment =
+  | { kind: "text"; value: string }
+  | { kind: "metric"; value: string }
+  | { kind: "product"; value: string }
+  | { kind: "link"; text: string; href: string };
+
+export interface AbstractParagraph {
+  segments: AbstractSegment[];
+}
+
 export interface SiteContent {
   hero: HeroProps;
-  abstract: string[];
-  validation: ValidationItem[];
+  abstract: AbstractParagraph[];
+  validation: ValidationContent;
   compute: ComputeEnvironmentProps;
 }
 
@@ -21,20 +31,35 @@ export interface HeroProps {
   tagline: string;
 }
 
-export interface ValidationItem {
-  title: string;
-  description: string;
+export interface MeritCredential {
+  text?: string;
+  emphasis?: string;
+  suffix?: string;
 }
 
-export interface ComputeLayer {
+export interface PortfolioEntry {
+  code: string;
   title: string;
-  summary: string;
-  stack?: string;
+  domain: string;
+  core: string;
+}
+
+export interface ValidationContent {
+  credentials: MeritCredential[];
+  portfolio: PortfolioEntry[];
+}
+
+export interface FirstPrincipleAxiom {
+  letter: string;
+  text: string;
 }
 
 export interface ComputeEnvironmentProps {
-  layers: ComputeLayer[];
+  sectionTitle?: string;
+  sectionHref?: string;
   image: string;
+  axioms: FirstPrincipleAxiom[];
+  stackTags?: string;
 }
 
 export interface HeaderProps {
