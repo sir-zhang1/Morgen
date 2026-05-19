@@ -1,48 +1,48 @@
 ---
-title: "Client + AI Experience"
-role: "Helm · Product"
-subtitle: "Launch markets, turn language into trades, and follow the best—without giving up your keys."
+title: "Growth · In-product"
+role: "Helm · Growth"
+subtitle: "Create markets, trade with AI, copy leaders—one surface."
 order: 3
 pubDate: 2026-05-18
-description: "React terminal with Solana wallet connect, Gemini-powered TradeDraft cards that prefill the order ticket, and Square for social distribution. Growth loops tie wallet profiles to points, referrals, and OAuth-verified missions."
+description: "A React terminal with wallet connect, staged AI from research to signed orders, permissionless creator markets, copy hub plus Square for social distribution, and wallet-native growth loops."
 ---
 
-This layer is how conviction becomes action: a **professional terminal UX** to create markets, draft trades with AI, copy leaders, and share on Square—without giving up your keys.
+**Growth is the surface area.** Investors care about distribution: who creates markets, who copies whom, and whether AI compresses time-to-trade. Helm packs **creator supply**, a **staged AI roadmap**, **copy + Square**, and **wallet-native missions** into one terminal—so acquisition and retention do not depend on three different apps.
 
-**Creator Markets · TradeDraft · Copy + Square** are the hero capabilities on the surface; execution still flows through wallet-signed transactions and the off-chain state machine.
+Execution still flows through **Trust · On-chain** signatures and the **Scale · Off-chain** state machine. Growth is how conviction becomes habit.
 
-## Terminal UI
+## Staged AI (research → execution → analysis)
 
-The shell covers home, market pages, the trading panel, portfolio, leaderboard, and copy-trading hub. The goal is desk-grade speed and clarity—a market view and order ticket built for prediction markets, not a generic swap UI.
+| Stage | User job | Product shape |
+| ----- | -------- | ------------- |
+| **V1 — Trading Research** | Explore markets through conversation | Dialogue model: streamed Q&A, market insight, and in-terminal research chat |
+| **V2 — Trading Assistant** | Act on intent in plain language | Natural language to **open**, **close**, and **copy-trade**—reviewable drafts, then wallet-signed execution |
+| **V3 — Trading Analyst** | See your book in context | Position analysis tied to your holdings; market retrieval with searchable, cited sources |
 
-## Wallets
+AI informs and drafts; you sign every trade. Research and analysis stay separate from non-custodial execution—that boundary protects **Trust** while the three stages show a clear maturity path for investors.
 
-Users connect via the **Solana Wallet Adapter** (Phantom, Backpack, Solflare, and others). The wallet address is the primary identity anchor for profiles, points, referrals, and copy relationships.
+## Creator supply
 
-## TradeDraft
+Eligible users launch **binary prediction markets** through a guided flow: signed requests, bot protection, and moderation before catalog listing. Fees accrue as markets trade; creators withdraw on-chain to their wallets. This is long-tail supply beyond protocol listings—paired with **Scale** ops rules so UGC can grow without breaking risk.
 
-**TradeDraft** turns natural language into structured trade drafts: the API returns Zod-validated JSON that prefills the order ticket. The user reviews and **signs with their wallet**—Helm does not custody keys and does not auto-sign. AI drafts trades; you execute.
+## Copy + Square as distribution
 
-## Creator Markets
+**Copy:** Guru rankings, follow relationships, and a dedicated hub connect social proof to the mirror engine—followers see edge; the product handles mirroring and settlement parity.
 
-Creators launch binary markets through a guided flow: signed create requests, bot protection, and eligibility gates before a market enters the catalog. Economics and fee accrual tie into settlement and on-chain creator withdrawals.
+**Square:** Feeds, comments, trade attachments, and signed posts tie narrative to real positions. Trades become content; content drives discovery. Same wallet identity across trading and feed.
 
-## Square
+## Wallet-native growth loops
 
-**Square** is the social distribution layer: feeds, posts with trade attachments, and signed posts so discourse stays tied to real positions. Discovery and narrative compound with the trading graph instead of living in a separate app.
+Points, referrals, and OAuth-verified missions (X, Discord, Telegram) attach to the **same wallet profile** as PnL and copy relationships. Onboarding can stay faucet-friendly; experiments do not outrun settlement reality because **Trust** and **Scale** stay in the loop.
 
-## Copy UX
+## Why one terminal
 
-Guru discovery, one-tap follow relationships, and feed intents connect social proof to the mirror engine. Followers see leaders’ edge; the product handles relationship state and mirror triggers behind the scenes.
+Desk-grade UI for home, markets, order ticket, portfolio, leaderboard, copy hub, and Square—built for prediction markets, not a generic swap shell. **Phantom, Backpack, Solflare**, and others via the Solana Wallet Adapter; the address is the identity anchor.
 
-## Growth
+## Under the hood
 
-Points, referrals, and OAuth-verified missions (Discord, X, Telegram) attach to the **same wallet-native profile graph** as trading. Growth loops are honest about identity: experiments do not outrun settlement reality.
-
-## Tech stack
-
-- **UI:** React 18, Tailwind CSS, shadcn/ui / Radix, Framer Motion / GSAP
-- **App:** Next.js App Router (home, trading, square routes)
+- **UI:** React 18, Tailwind, shadcn/ui / Radix, Framer Motion / GSAP
+- **App:** Next.js App Router (home, trading, square)
 - **Wallets:** `@solana/wallet-adapter-*`
-- **AI:** Google Gemini 2.5 Flash for trade-draft generation; Zod-validated draft schema
-- **Social & growth:** Square feed, rewards ledger, referral and OAuth auth APIs
+- **AI:** Google Gemini 2.5 Flash for order-draft generation; validated JSON schema
+- **Social & growth:** Square feed, rewards ledger, referral and OAuth APIs

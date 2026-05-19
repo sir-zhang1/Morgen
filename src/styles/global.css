@@ -120,6 +120,11 @@ body {
 .primitive-content h2 {
   font-size: var(--text-2xl);
   line-height: var(--text-2xl--line-height);
+  margin-bottom: 0.875rem;
+}
+
+.primitive-content h2 + table {
+  margin-top: 0.25rem;
 }
 
 .primitive-content h3 {
@@ -182,4 +187,66 @@ body {
   border: none;
   border-top: 1px solid rgb(148 163 184 / 0.2);
   margin: 2.5rem 0;
+}
+
+.primitive-content table {
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  margin: 0 0 1.25rem;
+  max-width: none;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.primitive-content thead th {
+  border-bottom: 1px solid rgb(148 163 184 / 0.35);
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 0 0.875rem 0.75rem;
+  text-align: left;
+  text-transform: uppercase;
+  vertical-align: bottom;
+}
+
+.primitive-content thead th:first-child {
+  padding-left: 0;
+  width: 26%;
+}
+
+.primitive-content thead th:nth-child(2) {
+  width: 34%;
+}
+
+.primitive-content tbody td {
+  border-bottom: 1px solid rgb(148 163 184 / 0.14);
+  color: var(--color-neutral);
+  padding: 0.875rem 0.875rem 0.875rem 0;
+  vertical-align: top;
+}
+
+.primitive-content tbody td:first-child {
+  color: var(--color-white);
+  font-weight: 600;
+  padding-left: 0;
+}
+
+.primitive-content tbody tr:last-child td {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.primitive-content tbody td strong {
+  color: var(--color-white);
+  font-weight: 600;
+}
+
+/* Paragraph immediately after a table (e.g. Staged AI footnote) */
+.primitive-content table + p {
+  margin-bottom: 2rem;
+  margin-top: 1.25rem;
+  max-width: 65ch;
 }

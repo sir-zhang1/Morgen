@@ -2,9 +2,9 @@
 import { SITE_CONTENT } from "@config";
 import Hero from "@components/Hero.astro";
 import Layout from "@layouts/Layout.astro";
-import Abstract from "@components/Abstract.astro";
+import Work from "@components/Work.astro";
+import Background from "@components/Background.astro";
 import Primitives from "@components/Primitives.astro";
-import Validation from "@components/Validation.astro";
 import ComputeEnvironment from "@components/ComputeEnvironment.astro";
 
 import "../styles/global.css";
@@ -12,8 +12,8 @@ import "../styles/global.css";
 
 <Layout>
   <Hero {...SITE_CONTENT.hero} />
-  <Abstract paragraphs={SITE_CONTENT.abstract} />
+  <Work work={SITE_CONTENT.work} />
+  <Background items={SITE_CONTENT.validation} />
   <Primitives />
-  <Validation items={SITE_CONTENT.validation} />
   <ComputeEnvironment {...SITE_CONTENT.compute} />
 </Layout>

@@ -58,7 +58,7 @@ const ogImgUrl = new URL(withBase(socialImage), Astro.site ?? resolvedCanonicalU
   </head>
   <body class="bg-black font-sans">
     <Header siteLogo={siteLogo} navLinks={navLinks} />
-    <main class="mx-auto max-w-3xl px-5 sm:px-6">
+    <main class="mx-auto max-w-5xl px-5 sm:px-6">
       <slot />
     </main>
     <Footer author={author} socialLinks={socialLinks} />

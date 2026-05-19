@@ -1,0 +1,58 @@
+---
+import type { CapabilitiesContent } from "@types";
+
+interface Props {
+  capabilities: CapabilitiesContent;
+}
+
+const { capabilities } = Astro.props;
+const { primary, secondary } = capabilities;
+---
+
+<div class="capabilities-cloud mx-auto w-full max-w-4xl" aria-label="Capability tags">
+  <div
+    class="primary-cluster flex flex-wrap items-center justify-center gap-3 md:gap-4"
+    role="list"
+    aria-label="Primary capabilities"
+  >
+    {
+      primary.map((label) => (
+        <span
+          role="listitem"
+          class="tag tag--primary inline-flex min-h-[3.5rem] items-center justify-center rounded-full border border-white/20 bg-white/[0.03] px-6 py-3 text-center font-serif text-2xl leading-none font-semibold tracking-tight text-white transition-[color,border-color,transform] duration-300 hover:border-primary/50 hover:bg-primary/5 motion-safe:hover:scale-[1.02] motion-reduce:transform-none md:min-h-[3.75rem] md:px-7 md:text-3xl"
+        >
+          {label}
+        </span>
+      ))
+    }
+  </div>
+
+  <div
+    class="secondary-cluster mt-10 flex flex-wrap items-center justify-center gap-2.5 md:mt-12 md:gap-3"
+    role="list"
+    aria-label="Additional capabilities"
+  >
+    {
+      secondary.map((label) => (
+        <span
+          role="listitem"
+          class="tag tag--secondary inline-flex h-9 min-h-9 items-center justify-center rounded-full border border-white/12 bg-white/[0.02] px-4 text-center text-sm leading-none text-neutral/80 transition-[color,border-color,transform] duration-300 hover:border-primary/40 hover:text-white motion-safe:hover:scale-[1.02] motion-reduce:transform-none md:h-10 md:min-h-10 md:px-5 md:text-[0.9375rem]"
+        >
+          {label}
+        </span>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .primary-cluster {
+    padding: 1.25rem 1rem;
+    border-radius: 1rem;
+    background: radial-gradient(
+      ellipse 80% 70% at 50% 50%,
+      color-mix(in srgb, var(--color-primary) 6%, transparent),
+      transparent 70%
+    );
+  }
+</style>

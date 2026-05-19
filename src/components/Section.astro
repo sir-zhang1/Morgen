@@ -2,12 +2,16 @@
 interface Props {
   text: string;
   href: string;
+  bordered?: boolean;
 }
 
-const { text, href } = Astro.props;
+const { text, href, bordered = false } = Astro.props;
 ---
 
-<section id={href} class="py-28 md:py-32">
+<section
+  id={href}
+  class:list={["py-28 md:py-32", bordered && "border-t border-white/10"]}
+>
   <h2
     class="mb-12 font-serif text-4xl leading-[1.08] font-bold tracking-tighter text-white md:mb-14 md:text-5xl"
   >

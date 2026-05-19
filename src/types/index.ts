@@ -8,19 +8,9 @@ export interface SiteConfig extends HeaderProps {
   canonicalURL?: string;
 }
 
-export type AbstractSegment =
-  | { kind: "text"; value: string }
-  | { kind: "metric"; value: string }
-  | { kind: "product"; value: string }
-  | { kind: "link"; text: string; href: string };
-
-export interface AbstractParagraph {
-  segments: AbstractSegment[];
-}
-
 export interface SiteContent {
   hero: HeroProps;
-  abstract: AbstractParagraph[];
+  work: WorkContent;
   validation: ValidationContent;
   compute: ComputeEnvironmentProps;
 }
@@ -28,7 +18,51 @@ export interface SiteContent {
 export interface HeroProps {
   name: string;
   role: string;
-  tagline: string;
+}
+
+export type PillarKey = "ai" | "copy" | "create";
+
+export interface CapabilitiesContent {
+  primary: string[];
+  secondary: string[];
+}
+
+export interface PillarStage {
+  version: string;
+  name: string;
+  text: string;
+}
+
+export interface ImplementationPillar {
+  id: PillarKey;
+  title: string;
+  lead: string;
+  stages?: PillarStage[];
+  points?: string[];
+}
+
+export interface JourneyStep {
+  label: string;
+  body: string;
+}
+
+export interface AchievementMetric {
+  value: string;
+  label: string;
+}
+
+export interface WorkContent {
+  capabilities: CapabilitiesContent;
+  implementation: {
+    pillars: ImplementationPillar[];
+    journey: JourneyStep[];
+    oneLiner: string;
+  };
+  achievements: {
+    headline: string;
+    primary: AchievementMetric[];
+    secondary: AchievementMetric[];
+  };
 }
 
 export interface MeritCredential {

@@ -1,9 +1,5 @@
-import {
-  NAV_LINKS,
-  SITE_DESCRIPTION,
-  SITE_TITLE,
-} from "../consts";
-import type { SiteConfig, SiteContent } from "../types";
+import { NAV_LINKS, SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import type { PillarKey, SiteConfig, SiteContent } from "../types";
 
 const FIRST_PRINCIPLES_AXIOMS = [
   {
@@ -44,94 +40,121 @@ export const SITE_CONTENT: SiteContent = {
   hero: {
     name: "Morgen",
     role: "Tech Partner, Architect and Core Contributor at Helm",
-    tagline: SITE_DESCRIPTION,
   },
-  abstract: [
-    {
-      segments: [
-        { kind: "text", value: "I lead product and technology for " },
-        { kind: "product", value: "Helm" },
-        { kind: "text", value: " (" },
-        {
-          kind: "link",
-          text: "helm.trading",
-          href: "https://helm.trading/",
-        },
-        {
-          kind: "text",
-          value:
-            ")—a Solana-native prediction-market terminal where users trade real-world event outcomes and short-duration crypto markets with the speed and clarity of a professional desk, not a crypto toy.",
-        },
+  work: {
+    capabilities: {
+      primary: [
+        "Full-stack Engineer",
+        "AI Engineer",
+        "Algorithm Engineer",
+        "Growth Product",
+      ],
+      secondary: [
+        "Product Manager",
+        "Software Engineer",
+        "Backend Engineer",
+        "Frontend Engineer",
+        "Web3 Engineer",
       ],
     },
-    {
-      segments: [
+    implementation: {
+      pillars: [
         {
-          kind: "text",
-          value:
-            "I joined at inception and owned the full stack from zero: product definition, trading architecture, data plane, and on-chain operations. That includes market and limit order flow, settlement and payout automation, indexer-style reconciliation, a ",
+          id: "ai",
+          title: "AI product line",
+          lead: "A three-stage AI stack—conversational market research, natural-language trading actions, then book-aware analysis with sourced retrieval.",
+          stages: [
+            {
+              version: "V1",
+              name: "Trading Research",
+              text: "Dialogue model for market Q&A, insights, and research chat in-terminal",
+            },
+            {
+              version: "V2",
+              name: "Trading Assistant",
+              text: "Natural language to open, close, and copy-trade—review drafts, then wallet-sign",
+            },
+            {
+              version: "V3",
+              name: "Trading Analyst",
+              text: "Position analysis for your book; market retrieval with cited, searchable sources",
+            },
+          ],
         },
-        { kind: "product", value: "copy-trading" },
         {
-          kind: "text",
-          value:
-            " mirror engine with auditable attribution, ",
+          id: "copy",
+          title: "Copy Trading",
+          lead: "Leaders trade; followers mirror automatically—with wallet-authorized funding and settlement kept in sync with the leader book.",
+          points: [
+            "Gurus surface through rankings and relationships",
+            "Trades propagate on Square as discoverable social proof",
+          ],
         },
-        { kind: "product", value: "UGC markets" },
         {
-          kind: "text",
-          value: " with creator economics, a social layer (",
-        },
-        { kind: "product", value: "Square" },
-        {
-          kind: "text",
-          value:
-            "), and growth systems (points, referrals, OAuth). On the AI side, I shipped ",
-        },
-        { kind: "product", value: "TradeDraft" },
-        {
-          kind: "text",
-          value:
-            "—an executable copilot that turns intent into structured, wallet-signed trades (no custody, no auto-signing).",
-        },
-      ],
-    },
-    {
-      segments: [
-        { kind: "product", value: "Helm" },
-        {
-          kind: "text",
-          value:
-            " is live on Solana devnet public beta by design: we stress-test real user behavior, economics, and ops before mainnet. The infrastructure is built mainnet-shaped—treasury, SPL flows, claims, anti-abuse, and a full V2→V3 token cutover across three devnet iterations—so scaling is an execution milestone, not a science project.",
-        },
-      ],
-    },
-    {
-      segments: [
-        { kind: "text", value: "Early traction is measurable: " },
-        { kind: "metric", value: "130k+" },
-        { kind: "text", value: " connected wallets, " },
-        { kind: "metric", value: "13.5M+" },
-        { kind: "text", value: " order records, and " },
-        { kind: "metric", value: "14.5M+" },
-        { kind: "text", value: " copy-pipeline events within the first " },
-        { kind: "metric", value: "~2.5 months" },
-        { kind: "text", value: " of beta, plus " },
-        { kind: "metric", value: "1,100+" },
-        { kind: "text", value: " user-created markets. I optimize for ship velocity, honest metrics, and " },
-        { kind: "product", value: "terminal-grade UX" },
-        {
-          kind: "text",
-          value:
-            "—the combination of product taste and systems depth that turns a prediction-market idea into a platform investors can underwrite.",
+          id: "create",
+          title: "Create Markets",
+          lead: "Anyone eligible can launch binary prediction markets, expanding long-tail supply beyond protocol listings.",
+          points: [
+            "Creators earn fees as markets trade",
+            "Withdraw earnings to your own wallets—non-custodial by design",
+          ],
         },
       ],
+      journey: [
+        {
+          label: "Discover",
+          body: "Browse home, protocol listings, rolling crypto hourlies, and picks tuned to the session—find a market worth a view.",
+        },
+        {
+          label: "Trade",
+          body: "Place market or limit orders, track live PnL, climb the leaderboard, and share results with QR-backed cards.",
+        },
+        {
+          label: "AI",
+          body: "Chat for market insight, speak to open or close or copy, then get portfolio-aware analysis with sourced market research—all with wallet-signed execution when you trade.",
+        },
+        {
+          label: "Copy",
+          body: "Follow ranked Gurus, turn on mirroring, and see leader activity in the hub and on Square—follower fills stay aligned with leader outcomes.",
+        },
+        {
+          label: "Create",
+          body: "Launch a market through guided checks and moderation, earn fees as volume accrues, and withdraw on-chain to your wallet.",
+        },
+        {
+          label: "Square",
+          body: "Post, comment, and like around real positions; signed posts and trade attachments make the feed a distribution layer for conviction.",
+        },
+        {
+          label: "Growth",
+          body: "Link X, Discord, or Telegram to the same wallet profile; earn points, referrals, and mission rewards while onboarding stays faucet-friendly.",
+        },
+        {
+          label: "Trust",
+          body: "Connect a Solana wallet, sign every money move, claim through automated payout jobs, and build reputation on-profile.",
+        },
+      ],
+      oneLiner:
+        "A full-stack prediction market terminal—creator supply, a staged AI stack from research to execution, and social copy distribution—built non-custodial on Solana.",
     },
-  ],
+    achievements: {
+      headline: "Production scale on Solana Devnet",
+      primary: [
+        { value: "14.0M+", label: "Orders processed (all-time)" },
+        { value: "93K+", label: "Wallet profiles" },
+        { value: "1.1K+", label: "Creator markets launched" },
+        { value: "760+", label: "Unique market creators" },
+        { value: "15.2M+", label: "Copy trading events" },
+        { value: "172K+", label: "Square posts" },
+        { value: "60K+", label: "Referral codes applied" },
+      ],
+      secondary: [],
+    },
+  },
   validation: {
     credentials: [
       {
-        text: "MS in AI, Shandong University — Computer Science ranks in the global ",
+        text: "MS in AI — Computer Science ranks in the global ",
         emphasis: "Top 0.1% (ESI) and Top 100 worldwide",
       },
       {

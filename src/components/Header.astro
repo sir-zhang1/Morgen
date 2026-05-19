@@ -99,7 +99,7 @@ const resolveHref = (href: string) => {
     .map((item) => item.getAttribute("data-section-id"))
     .filter((id): id is string => Boolean(id));
 
-  /** Scroll-position spy: Primitives is very tall (sticky cards), so IO max-ratio never picks validation. */
+  /** Scroll-position spy: Case Analysis is very tall (sticky cards), so scroll-marker beats IO max-ratio. */
   const updateActiveFromScroll = () => {
     const scrollMarker = window.scrollY + window.innerHeight * 0.28;
     let activeId = navSectionIds[0] ?? "hero";

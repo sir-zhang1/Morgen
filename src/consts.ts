@@ -1,10 +1,10 @@
 export const SITE_TITLE = "Morgen";
 export const SITE_DESCRIPTION =
-  "Deriving probability through mathematics. Settling consensus through engineering.";
+  "Tech Partner, Architect and Core Contributor at Helm";
 
 export const NAV_LINKS = [
-  { text: "Home", href: "/#hero" },
-  { text: "Primitives", href: "/#primitives" },
-  { text: "Merit", href: "/#validation" },
+  { text: "Work", href: "/#work" },
+  { text: "Background", href: "/#background" },
+  { text: "Case", href: "/#case" },
   { text: "Principles", href: "/#about" },
 ] as const;

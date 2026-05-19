@@ -1,48 +1,37 @@
 ---
-title: "On-chain Settlement"
-role: "Helm · On-chain"
-subtitle: "Capital moves on-chain; winners and creators get paid in HELM."
+title: "Trust · On-chain"
+role: "Helm · Trust"
+subtitle: "Money moves on-chain; users never surrender keys."
 order: 1
 pubDate: 2026-05-18
-description: "User wallets sign SPL transfers into the protocol treasury on open, and authenticated settle flows unlock keeper-driven payouts. Creator fee withdrawals settle as on-chain HELM to creator wallets—non-custodial by design."
+description: "Opening a trade means the wallet signs collateral into protocol treasury; wins and creator earnings pay out through automated on-chain jobs. Every flow is traceable on Solana—non-custodial by design."
 ---
 
-This layer owns **verifiable capital flows on Solana**—collateral in, payouts out. Order matching and book state live off-chain; here the product proves that money moved with wallet signatures and protocol treasury discipline.
+**Trust is the moat.** Prediction markets only work if capital in and payouts out are provable. Helm’s on-chain layer exists so every dollar of margin and every winner or creator payout can be traced on Solana—with the user’s wallet in control the entire time.
 
-**HELM V3** is the settlement asset. Payouts are treasury-backed and automated through the keeper pipeline—not a custom on-chain prediction market program.
+Matching and book state run elsewhere (**Scale · Off-chain**). This layer answers one question for investors and users: *did the money actually move, and can we prove it without trusting a black box?*
 
-## What this layer owns
+## Why this layer exists
 
-Helm does not ship a bespoke Anchor program for market matching in this stack. Differentiation on-chain is **SPL HELM transfers**, **Memo-authenticated** open and settle flows, and a **protocol treasury** that pays winners and creators. If you cannot trace collateral and payout on Solana, you cannot trust the terminal.
+Most “Web3 trading” products either custody keys or hide settlement behind opaque ledgers. Helm chose a narrower, harder path: **wallet-signed flows** into a protocol treasury, **automated on-chain payouts** out, and **HELM V3** as the settlement token—**verifiable flows and disciplined treasury ops** built to earn trust at scale.
 
-## Open trade
+## Collateral in (open)
 
-To open a position, the user signs an SPL transfer of margin into the protocol treasury, paired with a Memo payload that authenticates the intent (open trade, market, side, size). The wallet always initiates the transfer—Helm never holds keys.
+Every open starts with the user signing margin into the protocol treasury, plus an on-chain payload that binds intent (market, side, size). Helm never holds private keys. If it is not wallet-initiated, it does not ship.
 
-## Close and claim
+## Payouts out (close, claim, win)
 
-Closing or claiming follows the same pattern: a user-signed Memo authorization transaction (with an optional SOL network fee), which unlocks off-chain settlement logic and enqueues payout work. Database state records the outcome; this layer executes the HELM movement.
+Close and claim follow the same discipline: user-signed authorization unlocks off-chain settlement logic; the on-chain layer executes HELM movement to the user’s token account. Payout jobs are queued, executed, and **reconciled to chain signatures** so missed transfers can be detected and repaired—operations you can diligence, not hand-waved “we pay winners.”
 
-## Payouts
+## Copy and creators on-chain
 
-A keeper-style pipeline moves HELM from the protocol treasury to user associated token accounts. Payout rows are tracked and reconciled against chain signatures so missed transfers can be detected and repaired.
+**Copy trading** has an on-chain leg: followers grant explicit delegation so mirrored opens move real collateral under rules they approved—not paper fills.
 
-## Copy mirror (on-chain leg)
+**Creator markets** accrue fees off-chain as volume settles; withdrawals complete as on-chain transfers to creator wallets. Supply (**Growth**) and scale (**Scale**) only compound if creators and followers trust the money path.
 
-Social copy-trading has an on-chain leg: followers can grant delegated SPL approval so mirror transfers execute under explicit delegation rules. Attribution and follower order rows are recorded off-chain; the chain leg proves collateral moved for mirrored opens.
+## Under the hood
 
-## Creator economics (on-chain leg)
-
-Creator fees accrue off-chain as markets trade and settle. Withdrawals are prepared and confirmed as SPL transfers from the creator treasury path to creator wallets—again wallet-signed and non-custodial.
-
-## Token
-
-Settlement today uses **HELM V3** on Solana. Earlier HELM mint generations exist for historical beta iterations; the product narrative treats V3 as the current settlement asset for new flow.
-
-## Tech stack
-
-- Solana: `@solana/web3.js`, `@solana/spl-token`
-- Programs invoked: **SPL Token**, **Memo**, ComputeBudget, SystemProgram
-- Patterns: wallet-signed SPL margin, Memo-authenticated open/settle, treasury → user ATA payouts
-- Copy on-chain: delegated SPL `approve` + mirror transfer for followers
-- Non-custodial by design: no protocol custody of user keys
+- Solana via `@solana/web3.js`, `@solana/spl-token`
+- Programs: SPL Token, Memo, ComputeBudget, SystemProgram
+- Patterns: wallet-signed margin, authenticated open/settle payloads, treasury → user token accounts
+- Copy: delegated approval + mirror transfers for followers
