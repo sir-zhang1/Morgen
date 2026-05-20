@@ -1,6 +1,5 @@
 ---
 import Section from "./Section.astro";
-import CapabilitiesCloud from "./CapabilitiesCloud.astro";
 import type { WorkContent } from "@types";
 
 interface Props {
@@ -8,54 +7,13 @@ interface Props {
 }
 
 const { work } = Astro.props;
-const { capabilities, implementation, achievements } = work;
-
-const workSubnav = [
-  { id: "capabilities", label: "Capabilities" },
-  { id: "implementation", label: "Implementation" },
-  { id: "achievements", label: "Achievements" },
-] as const;
+const { implementation, achievements } = work;
 
 const pillarDomId = (id: string) => `pillar-${id}`;
 ---
 
 <Section text="Work" href="work">
-  <nav
-    class="work-subnav -mt-4 mb-14 flex gap-2 overflow-x-auto pb-1 md:mb-16"
-    aria-label="Work sections"
-  >
-    {
-      workSubnav.map(({ id, label }) => (
-        <a
-          href={`#${id}`}
-          class="work-subnav-link shrink-0 rounded-full border border-white/15 px-4 py-2 text-sm font-medium tracking-wide text-neutral transition-colors hover:border-primary/40 hover:text-white"
-          data-work-target={id}
-        >
-          {label}
-        </a>
-      ))
-    }
-  </nav>
-
-  <section id="capabilities" class="scroll-mt-28 pb-20 md:pb-24">
-    <h3
-      class="mb-8 font-serif text-2xl font-semibold tracking-tight text-white md:text-3xl"
-    >
-      Capabilities
-    </h3>
-    <CapabilitiesCloud capabilities={capabilities} />
-  </section>
-
-  <section
-    id="implementation"
-    class="scroll-mt-28 border-t border-white/10 pb-20 pt-20 md:pb-24 md:pt-24"
-  >
-    <h3
-      class="mb-10 font-serif text-2xl font-semibold tracking-tight text-white md:mb-12 md:text-3xl"
-    >
-      Implementation
-    </h3>
-
+  <div id="implementation" class="work-block scroll-mt-28">
     <div class="implementation-pillars">
       {
         implementation.pillars.map(({ id, title, lead, stages, points }) => (
@@ -71,7 +29,7 @@ const pillarDomId = (id: string) => `pillar-${id}`;
                       <span class="implementation-pillar__item-text">
                         <strong>{name}</strong>
                         <span class="implementation-pillar__sep" aria-hidden="true">
-                          ?
+                          —
                         </span>
                         {text}
                       </span>
@@ -141,18 +99,13 @@ const pillarDomId = (id: string) => `pillar-${id}`;
         </ol>
       </div>
     </div>
-  </section>
+  </div>
 
   <section
     id="achievements"
-    class="scroll-mt-28 border-t border-white/10 pt-20 md:pt-24"
+    class="work-block work-block--achievements scroll-mt-28 border-t border-white/10 pt-16 md:pt-20"
   >
-    <h3
-      class="mb-2 font-serif text-2xl font-semibold tracking-tight text-white md:text-3xl"
-    >
-      Achievements
-    </h3>
-    <p class="mb-10 text-base text-neutral/80 italic md:mb-12">
+    <p class="achievements-headline mb-10 text-base text-neutral/80 italic md:mb-12">
       {achievements.headline}
     </p>
 
@@ -188,69 +141,15 @@ const pillarDomId = (id: string) => `pillar-${id}`;
   </section>
 </Section>
 
-<script>
-  const subnavLinks = document.querySelectorAll<HTMLAnchorElement>(
-    ".work-subnav-link",
-  );
-  const workSectionIds = ["capabilities", "implementation", "achievements"];
-
-  const activeSubnavClasses = [
-    "border-primary/50",
-    "bg-primary/10",
-    "text-white",
-  ];
-
-  const setActiveWorkSubnav = (sectionId: string) => {
-    subnavLinks.forEach((link) => {
-      const isActive = link.getAttribute("data-work-target") === sectionId;
-      activeSubnavClasses.forEach((cls) =>
-        link.classList.toggle(cls, isActive),
-      );
-    });
-  };
-
-  const updateWorkSubnavFromScroll = () => {
-    const scrollMarker = window.scrollY + window.innerHeight * 0.32;
-    let activeId = workSectionIds[0]!;
-
-    for (const id of workSectionIds) {
-      const el = document.getElementById(id);
-      if (el && el.offsetTop <= scrollMarker) {
-        activeId = id;
-      }
-    }
-
-    setActiveWorkSubnav(activeId);
-  };
-
-  let workScrollTicking = false;
-  const onWorkScroll = () => {
-    if (workScrollTicking) return;
-    workScrollTicking = true;
-    requestAnimationFrame(() => {
-      updateWorkSubnavFromScroll();
-      workScrollTicking = false;
-    });
-  };
-
-  subnavLinks.forEach((link) => {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      const id = link.getAttribute("data-work-target");
-      const target = id ? document.getElementById(id) : null;
-      if (target) {
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-        history.replaceState(null, "", `#${id}`);
-      }
-    });
-  });
-
-  window.addEventListener("scroll", onWorkScroll, { passive: true });
-  window.addEventListener("resize", onWorkScroll, { passive: true });
-  updateWorkSubnavFromScroll();
-</script>
-
 <style>
+  .work-block--achievements {
+    margin-top: 0;
+  }
+
+  .achievements-headline {
+    margin-top: 0;
+  }
+
   .implementation-pillars {
     display: grid;
     gap: 1.25rem;

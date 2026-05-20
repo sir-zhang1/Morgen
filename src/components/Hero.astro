@@ -1,40 +1,164 @@
 ---
+import CapabilitiesCloud from "./CapabilitiesCloud.astro";
 import type { HeroProps } from "@types";
 
 type Props = HeroProps;
 
-const { name, role } = Astro.props;
+const { name, role, capabilities } = Astro.props;
 ---
 
-<section class="hero border-b border-white/5 py-32 md:py-40 lg:py-44" id="hero">
-  <h1 class="hero-title mb-8 font-serif font-bold tracking-tightest text-white uppercase md:mb-10">
-    {name}
-  </h1>
-  <p class="hero-role max-w-2xl border-l-2 border-primary/60 pl-5 font-medium tracking-wide text-primary md:pl-6">
-    {role}
-  </p>
+<section class="hero border-b border-white/5" id="hero">
+  <div class="hero__stack">
+    <header class="hero__intro">
+      <div class="hero__focus">
+        <h1 class="hero-title font-serif font-bold tracking-tightest text-white uppercase">
+          {name}
+        </h1>
+        <p class="hero-role font-medium text-primary">
+          {role}
+        </p>
+      </div>
+    </header>
+
+    <div class="hero__capabilities">
+      <CapabilitiesCloud capabilities={capabilities} variant="hero" />
+    </div>
+  </div>
 </section>
 
 <style>
+  .hero {
+    padding: 2.75rem 0 3.25rem;
+  }
+
+  .hero__stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 100%;
+  }
+
+  .hero__intro {
+    container-type: inline-size;
+    margin: 0 0 2.5rem;
+    position: relative;
+    width: 100%;
+  }
+
+  .hero__focus {
+    max-width: 46rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero__intro::before {
+    background: radial-gradient(
+      ellipse 85% 75% at 0% 42%,
+      color-mix(in srgb, var(--color-primary) 14%, transparent),
+      transparent 62%
+    );
+    content: "";
+    inset: -12% -8% -28% 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: 0;
+  }
+
   .hero-title {
-    font-size: clamp(3.5rem, 11vw, 7.5rem);
-    line-height: 0.9;
-    letter-spacing: -0.04em;
+    font-size: clamp(4rem, 15vw, 8.5rem);
+    letter-spacing: -0.048em;
+    line-height: 0.88;
+    margin: 0 0 1.125rem;
+    text-shadow: 0 0 80px color-mix(in srgb, var(--color-primary) 18%, transparent);
   }
 
   .hero-role {
-    font-size: clamp(1.0625rem, 2.2vw, 1.375rem);
-    line-height: 1.65;
+    border-left: 3px solid var(--color-primary);
+    color: color-mix(in srgb, var(--color-primary) 92%, var(--color-white));
+    font-size: clamp(0.6875rem, 4.2cqi, 1.1875rem);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1.32;
+    margin: 0;
+    max-width: none;
+    padding-left: 1.125rem;
+    white-space: nowrap;
+  }
+
+  .hero__capabilities {
+    margin-top: 3rem;
+    min-width: 0;
+    opacity: 0.92;
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .hero {
+      padding: 3.25rem 0 3.75rem;
+    }
+
+    .hero__intro {
+      margin-bottom: 3rem;
+    }
+
+    .hero-role {
+      font-size: clamp(0.9375rem, 3.75cqi, 1.1875rem);
+      padding-left: 1.25rem;
+    }
+
+    .hero__capabilities {
+      margin-top: 3.75rem;
+      opacity: 0.88;
+    }
   }
 
   @media (min-width: 1024px) {
     .hero {
-      min-height: calc(100vh - 5.5rem);
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding-top: 2rem;
-      padding-bottom: 3rem;
+      min-height: calc(100vh - 5.5rem);
+      padding: 2.25rem 0 3.75rem;
+    }
+
+    .hero__stack {
+      padding-bottom: 2rem;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .hero__stack {
+        transform: translateY(-1.25rem);
+      }
+    }
+
+    .hero__intro::before {
+      inset: -18% -5% -35% 0;
+    }
+
+    .hero-title {
+      font-size: clamp(5.75rem, 10vw, 8.5rem);
+      line-height: 0.86;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-role {
+      font-size: 1.25rem;
+      letter-spacing: 0.022em;
+      line-height: 1.3;
+      padding-left: 1.375rem;
+    }
+
+    .hero__focus {
+      max-width: 52rem;
+    }
+
+    .hero__intro {
+      margin-bottom: 3.5rem;
+    }
+
+    .hero__capabilities {
+      margin-top: 4.5rem;
+      opacity: 0.85;
     }
   }
 </style>

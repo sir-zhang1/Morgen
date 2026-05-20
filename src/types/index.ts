@@ -18,6 +18,7 @@ export interface SiteContent {
 export interface HeroProps {
   name: string;
   role: string;
+  capabilities: CapabilitiesContent;
 }
 
 export type PillarKey = "ai" | "copy" | "create";
@@ -52,7 +53,6 @@ export interface AchievementMetric {
 }
 
 export interface WorkContent {
-  capabilities: CapabilitiesContent;
   implementation: {
     pillars: ImplementationPillar[];
     journey: JourneyStep[];

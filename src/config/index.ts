@@ -40,8 +40,6 @@ export const SITE_CONTENT: SiteContent = {
   hero: {
     name: "Morgen",
     role: "Tech Partner, Architect and Core Contributor at Helm",
-  },
-  work: {
     capabilities: {
       primary: [
         "Full-stack Engineer",
@@ -57,6 +55,8 @@ export const SITE_CONTENT: SiteContent = {
         "Web3 Engineer",
       ],
     },
+  },
+  work: {
     implementation: {
       pillars: [
         {
@@ -92,7 +92,7 @@ export const SITE_CONTENT: SiteContent = {
         },
         {
           id: "create",
-          title: "Create Markets",
+          title: "Permissionless Markets",
           lead: "Anyone eligible can launch binary prediction markets, expanding long-tail supply beyond protocol listings.",
           points: [
             "Creators earn fees as markets trade",

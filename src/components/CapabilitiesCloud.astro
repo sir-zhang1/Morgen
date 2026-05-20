@@ -3,56 +3,317 @@ import type { CapabilitiesContent } from "@types";
 
 interface Props {
   capabilities: CapabilitiesContent;
+  /** default = centered pill cloud; hero = homepage capabilities block */
+  variant?: "default" | "hero";
+  /** hero only: editorial index (scheme 1) or pill cloud — set cloud to revert */
+  heroLayout?: "editorial" | "cloud";
 }
 
-const { capabilities } = Astro.props;
+const { capabilities, variant = "default", heroLayout = "editorial" } = Astro.props;
 const { primary, secondary } = capabilities;
+const isHero = variant === "hero";
+const isHeroEditorial = isHero && heroLayout === "editorial";
+const isHeroCloud = isHero && heroLayout === "cloud";
 ---
 
-<div class="capabilities-cloud mx-auto w-full max-w-4xl" aria-label="Capability tags">
-  <div
-    class="primary-cluster flex flex-wrap items-center justify-center gap-3 md:gap-4"
-    role="list"
-    aria-label="Primary capabilities"
-  >
-    {
-      primary.map((label) => (
-        <span
-          role="listitem"
-          class="tag tag--primary inline-flex min-h-[3.5rem] items-center justify-center rounded-full border border-white/20 bg-white/[0.03] px-6 py-3 text-center font-serif text-2xl leading-none font-semibold tracking-tight text-white transition-[color,border-color,transform] duration-300 hover:border-primary/50 hover:bg-primary/5 motion-safe:hover:scale-[1.02] motion-reduce:transform-none md:min-h-[3.75rem] md:px-7 md:text-3xl"
-        >
-          {label}
-        </span>
-      ))
-    }
-  </div>
+{
+  isHeroEditorial ? (
+    <div
+      class="capabilities-index capabilities-index--supporting capabilities-cloud--hero w-full"
+      aria-label="Capabilities"
+    >
+      <ul class="capabilities-index__primary" role="list" aria-label="Primary roles">
+        {
+          primary.map((label, index) => (
+            <li class="capabilities-index__item" role="listitem">
+              <span class="capabilities-index__num" aria-hidden="true">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <span class="capabilities-index__label font-serif font-medium">
+                {label}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="capabilities-index__secondary text-neutral">
+        {secondary.join(" · ")}
+      </p>
+    </div>
+  ) : (
+    <div
+      class:list={[
+        "capabilities-cloud w-full",
+        isHero ? "capabilities-cloud--hero" : "mx-auto max-w-4xl",
+      ]}
+      aria-label="Role tags"
+    >
+      <div
+        class:list={[
+          "primary-cluster flex flex-wrap",
+          isHero
+            ? "capabilities-cloud__primary-row justify-start"
+            : "items-center justify-center gap-2.5 md:gap-3",
+        ]}
+        role="list"
+        aria-label="Primary roles"
+      >
+        {
+          primary.map((label) => (
+            <span
+              role="listitem"
+              class:list={[
+                "tag tag--primary inline-flex items-center justify-center rounded-full border border-white/20 bg-white/[0.03] text-center font-serif font-semibold tracking-tight text-white transition-[color,border-color,transform] duration-300 hover:border-primary/50 hover:bg-primary/5 motion-safe:hover:scale-[1.02] motion-reduce:transform-none",
+                isHeroCloud
+                  ? "tag--hero-primary"
+                  : "min-h-[3.5rem] px-6 py-3 text-2xl leading-none md:min-h-[3.75rem] md:px-7 md:text-3xl",
+              ]}
+            >
+              {label}
+            </span>
+          ))
+        }
+      </div>
 
-  <div
-    class="secondary-cluster mt-10 flex flex-wrap items-center justify-center gap-2.5 md:mt-12 md:gap-3"
-    role="list"
-    aria-label="Additional capabilities"
-  >
-    {
-      secondary.map((label) => (
-        <span
-          role="listitem"
-          class="tag tag--secondary inline-flex h-9 min-h-9 items-center justify-center rounded-full border border-white/12 bg-white/[0.02] px-4 text-center text-sm leading-none text-neutral/80 transition-[color,border-color,transform] duration-300 hover:border-primary/40 hover:text-white motion-safe:hover:scale-[1.02] motion-reduce:transform-none md:h-10 md:min-h-10 md:px-5 md:text-[0.9375rem]"
-        >
-          {label}
-        </span>
-      ))
-    }
-  </div>
-</div>
+      <div
+        class:list={[
+          "secondary-cluster flex flex-wrap",
+          isHeroCloud
+            ? "capabilities-cloud__secondary-row justify-start"
+            : "mt-10 items-center justify-center gap-2 md:mt-12 md:gap-2.5",
+        ]}
+        role="list"
+        aria-label="Additional roles"
+      >
+        {
+          secondary.map((label) => (
+            <span
+              role="listitem"
+              class:list={[
+                "tag tag--secondary inline-flex items-center justify-center rounded-full border border-white/12 bg-white/[0.02] text-center leading-none text-neutral/80 transition-[color,border-color,transform] duration-300 hover:border-primary/40 hover:text-white motion-safe:hover:scale-[1.02] motion-reduce:transform-none",
+                isHeroCloud
+                  ? "tag--hero-secondary"
+                  : "h-9 min-h-9 px-4 text-sm md:h-10 md:min-h-10 md:px-5 md:text-[0.9375rem]",
+              ]}
+            >
+              {label}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+  )
+}
 
 <style>
+  /* —— Editorial index (hero scheme 1) —— */
+  .capabilities-index {
+    max-width: 54rem;
+  }
+
+  .capabilities-index--supporting {
+    max-width: 50rem;
+  }
+
+  .capabilities-index--supporting .capabilities-index__label {
+    color: color-mix(in srgb, var(--color-white) 68%, transparent);
+    font-weight: 500;
+  }
+
+  .capabilities-index--supporting .capabilities-index__num {
+    color: color-mix(in srgb, var(--color-primary) 65%, var(--color-neutral));
+    opacity: 0.75;
+  }
+
+  .capabilities-index--supporting .capabilities-index__secondary {
+    color: color-mix(in srgb, var(--color-neutral) 72%, transparent);
+    font-size: 0.8125rem;
+  }
+
+  .capabilities-index__primary {
+    display: grid;
+    gap: 1rem 2.25rem;
+    grid-template-columns: 1fr;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .capabilities-index__item {
+    align-items: baseline;
+    display: flex;
+    gap: 0.875rem;
+    margin: 0;
+  }
+
+  .capabilities-index__num {
+    color: var(--color-primary);
+    flex-shrink: 0;
+    font-size: 0.6875rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    line-height: 1;
+    min-width: 1.5rem;
+    opacity: 0.88;
+    padding-top: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .capabilities-index__label {
+    font-size: 1rem;
+    letter-spacing: -0.015em;
+    line-height: 1.35;
+  }
+
+  .capabilities-index__secondary {
+    color: color-mix(in srgb, var(--color-neutral) 88%, transparent);
+    font-size: 0.875rem;
+    letter-spacing: 0.025em;
+    line-height: 1.75;
+    margin: 1.75rem 0 0;
+    max-width: 50rem;
+    word-spacing: 0.08em;
+  }
+
+  @media (min-width: 520px) {
+    .capabilities-index__primary {
+      column-gap: 3rem;
+      gap: 1.125rem 3rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .capabilities-index__item {
+      gap: 1rem;
+    }
+
+    .capabilities-index--supporting .capabilities-index__label {
+      font-size: 1.0625rem;
+    }
+
+    .capabilities-index__label {
+      line-height: 1.32;
+    }
+
+    .capabilities-index__secondary {
+      margin-top: 2rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .capabilities-index__primary {
+      column-gap: 4rem;
+      row-gap: 1.25rem;
+    }
+
+    .capabilities-index__num {
+      font-size: 0.71875rem;
+      min-width: 1.625rem;
+      padding-top: 0.22em;
+    }
+
+    .capabilities-index--supporting .capabilities-index__label {
+      font-size: 1.0625rem;
+      line-height: 1.3;
+    }
+
+    .capabilities-index--supporting .capabilities-index__secondary {
+      font-size: 0.875rem;
+      margin-top: 2rem;
+    }
+
+    .capabilities-index__secondary {
+      letter-spacing: 0.03em;
+      line-height: 1.8;
+      margin-top: 2.25rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .capabilities-index__primary {
+      column-gap: 4.5rem;
+      row-gap: 1.25rem;
+    }
+
+    .capabilities-index--supporting .capabilities-index__label {
+      font-size: 1.0625rem;
+    }
+
+    .capabilities-index--supporting .capabilities-index__secondary {
+      margin-top: 2.25rem;
+    }
+  }
+
+  /* —— Pill cloud (default + hero cloud revert) —— */
   .primary-cluster {
-    padding: 1.25rem 1rem;
     border-radius: 1rem;
+    padding: 0.75rem 0;
+  }
+
+  .capabilities-cloud:not(.capabilities-cloud--hero) .primary-cluster {
     background: radial-gradient(
       ellipse 80% 70% at 50% 50%,
       color-mix(in srgb, var(--color-primary) 6%, transparent),
       transparent 70%
     );
+    padding: 1.25rem 1rem;
+  }
+
+  .capabilities-cloud--hero .capabilities-cloud__primary-row,
+  .capabilities-cloud--hero .capabilities-cloud__secondary-row {
+    align-items: center;
+    column-gap: 0.5rem;
+    row-gap: 0.5rem;
+  }
+
+  .capabilities-cloud--hero .capabilities-cloud__secondary-row {
+    margin-top: 0.625rem;
+  }
+
+  .capabilities-cloud--hero .tag--hero-primary {
+    font-size: 1rem;
+    line-height: 1;
+    min-height: 2.5rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .capabilities-cloud--hero .tag--hero-secondary {
+    font-size: 0.8125rem;
+    line-height: 1;
+    min-height: 2.125rem;
+    padding: 0.375rem 0.875rem;
+  }
+
+  .capabilities-cloud--hero .primary-cluster {
+    background: radial-gradient(
+      ellipse 100% 70% at 0% 50%,
+      color-mix(in srgb, var(--color-primary) 7%, transparent),
+      transparent 68%
+    );
+    padding: 0;
+  }
+
+  @media (min-width: 768px) {
+    .capabilities-cloud--hero .capabilities-cloud__primary-row,
+    .capabilities-cloud--hero .capabilities-cloud__secondary-row {
+      column-gap: 0.625rem;
+      row-gap: 0.625rem;
+    }
+
+    .capabilities-cloud--hero .capabilities-cloud__secondary-row {
+      margin-top: 0.75rem;
+    }
+
+    .capabilities-cloud--hero .tag--hero-primary {
+      font-size: 1.0625rem;
+      min-height: 2.625rem;
+      padding: 0.5rem 1.125rem;
+    }
+
+    .capabilities-cloud--hero .tag--hero-secondary {
+      font-size: 0.875rem;
+      min-height: 2.25rem;
+      padding: 0.4375rem 1rem;
+    }
   }
 </style>
